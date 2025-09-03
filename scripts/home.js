@@ -1,9 +1,12 @@
 let container = document.querySelector(".container");
-for (let i=0; i<256; i++){
-  let box = document.createElement("div");
-  box.classList.add("box");
-  container.appendChild(box);
+function createGrid(row) {
+  for (let i=0; i<(row ** 2); i++){
+    let box = document.createElement("div");
+    box.classList.add("box");
+    container.appendChild(box);
+  }
 }
+createGrid(16);
 
 let mousedown = false;
 
@@ -24,4 +27,15 @@ document.body.addEventListener("mouseup", (e) => {
       }
     }
   });
+});
+
+let button = document.querySelector(".btn");
+
+button.addEventListener("click", () => {
+  let number = prompt("Enter no. of square per side you want below 50");
+  if (number > 50) return;
+  container.style.cssText = `width: ${number * 20}px`;
+  let grid = document.querySelectorAll(".box");
+  grid.forEach( box => box.remove());
+  createGrid(number);
 });
